@@ -2,7 +2,7 @@
 import os
 
 # assign directory
-directory = 'files'
+directory = 'TestDir'
 
 # Iterate over files in that directory
 for filename in os.listdir(directory):
