@@ -2,11 +2,11 @@
 import os
 
 # assign directory
-directory = 'TestDir'
+directory = 'files'
 
-# Iterate over files in that directory
-for filename in os.listdir(directory):
-    f = os.path.join(directory, filename)
-    # checking if it is a file
-    if os.path.isfile(f):
-        print(f)
+# itrate over files in
+# that directory
+for root, dirs, files in os.walk(directory):
+    for filename in files:
+        print(os.path.join(root, filename))
+
