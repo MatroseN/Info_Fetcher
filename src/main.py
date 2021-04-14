@@ -2,11 +2,17 @@
 import os
 
 # assign directory
-directory = 'files'
+directory = 'TestDir'
 
-# itrate over files in
-# that directory
+
+# Read text File
+def read_text_file(file_path):
+    with open(file_path, 'r') as f:
+        print(f.read())
+
+
+# Iterate over files in directory
 for root, dirs, files in os.walk(directory):
     for filename in files:
-        print(os.path.join(root, filename))
-
+        file_path = os.path.join(root, filename)
+        read_text_file(file_path)
