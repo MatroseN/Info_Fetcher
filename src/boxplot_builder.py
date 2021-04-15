@@ -28,6 +28,7 @@ fig = plt.figure(figsize=(10, 7))
 
 # Creating plot
 plt.boxplot(columns)
+plt.xticks([1, 2, 3], ['Batch_size:8', 'Batch_size:16', 'Batch_size:32'])
 
 # show plot
 plt.show()
