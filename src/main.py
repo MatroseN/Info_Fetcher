@@ -2,30 +2,33 @@
 import os
 import re
 import csv
+import pickle
+import pprint
+
+model_dict = {}
+
+try:
+    with open("experiment_results.pkl", "rb") as f:
+        model_dict = pickle.load(f)
+except IOError:
+    print("File not accessible")
+
+accuracy_list = []
+
+# This will be the key in the dictionary for this models entry
+model_label = "Batch_size: 16"
+
+# setting flag and index to 0
+count = 0
 
 # assign directory
 directory = '../Batch/Custom_logs/'
 
-search_string = "^.*batch_size,8.*$"
+search_string = "^.*batch_size,16.*$"
 
 pattern = re.compile(search_string)
 
 folder = ""
-
-# setting flag and index to 0
-count = 0
-
-# assign directory
-directory = '../Batch/Custom_logs/'
-
-search_string = "^.*batch_size,8.*$"
-
-pattern = re.compile(search_string)
-
-folder = ""
-
-# setting flag and index to 0
-count = 0
 
 
 def get_full_path(specific_file):
@@ -36,17 +39,15 @@ def get_full_path(specific_file):
                 return os.path.join(r, name)
 
 
-def accuracy_fetcher(folder):
+def accuracy_fetcher(folder, accuracy_list):
     path = folder + "_prediction.csv"
-    accuracy = None
     full_file_path = get_full_path(path)
 
     reader = csv.DictReader(open(full_file_path))
     for data in map(dict, reader):
         accuracy = data.get("num_correct_percent")
-    print()
-    print("Accuracy:")
-    print(accuracy)
+        accuracy_list.append(accuracy)
+    return accuracy_list
 
 
 # Read text File
@@ -56,10 +57,6 @@ def read_text_file(file_path):
         for line in f:
             # checking string is present in line or not
             for match in re.finditer(pattern, line):
-                print()
-                print("////////////////--------------//////////////////")
-                print("Value: " + match.string + " found in file")
-                print(file_path)
                 return True
 
 
@@ -68,12 +65,17 @@ for root, dirs, files in os.walk(directory):
     for filename in files:
         if filename.endswith("hyper.csv") or filename.endswith("model_settings.json"):
             file_path = os.path.join(root, filename)
+            # if a regex match in a text file occurs find that models test accuracy and add it as a list to
+            # model_dict as a new entry
             if read_text_file(file_path):
                 dir_path = os.path.dirname(os.path.realpath(file_path))
                 dir_path = os.path.basename(os.path.normpath(dir_path))
-                accuracy_fetcher(dir_path)
+                acc = accuracy_fetcher(dir_path, accuracy_list)
+                model_dict[model_label] = acc
+
+                f = open("experiment_results.pkl", "wb")
+                pickle.dump(model_dict, f)
+                f.close()
                 count += 1
 
-print()
-print("Matches:")
-print(count)
+pprint.pprint(model_dict)
