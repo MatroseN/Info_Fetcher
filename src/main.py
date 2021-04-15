@@ -2,7 +2,7 @@
 import os
 
 # assign directory
-directory = 'TestDir'
+directory = '../Batch/Custom_logs/'
 
 
 # Read text File
