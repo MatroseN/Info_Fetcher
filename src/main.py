@@ -76,6 +76,5 @@ for root, dirs, files in os.walk(directory):
                 f = open("experiment_results.pkl", "wb")
                 pickle.dump(model_dict, f)
                 f.close()
-                count += 1
 
 pprint.pprint(model_dict)
