@@ -11,16 +11,16 @@ import numpy as np
 model_dict = {}
 
 try:
-    with open("../experiment_results/lr_mom.pkl", "rb") as f:
+    with open("../experiment_results/lr_mom_0_99.pkl", "rb") as f:
         model_dict = pickle.load(f)
 except IOError:
     print("File not accessible")
 
-lr_001 = np.array(model_dict.get("LR: 0.001, MOM: 0")).astype(float)
-lr_005 = np.array(model_dict.get("LR: 0.005, MOM: 0")).astype(float)
-lr_01 = np.array(model_dict.get("LR: 0.01, MOM: 0")).astype(float)
-lr_015 = np.array(model_dict.get("LR: 0.015, MOM: 0")).astype(float)
-lr_02 = np.array(model_dict.get("LR: 0.02, MOM: 0")).astype(float)
+lr_001 = np.array(model_dict.get("LR: 0.001, MOM: 0.99")).astype(float)
+lr_005 = np.array(model_dict.get("LR: 0.005, MOM: 0.99")).astype(float)
+lr_01 = np.array(model_dict.get("LR: 0.01, MOM: 0.99")).astype(float)
+lr_015 = np.array(model_dict.get("LR: 0.015, MOM: 0.99")).astype(float)
+lr_02 = np.array(model_dict.get("LR: 0.02, MOM: 0.99")).astype(float)
 
 
 columns = [lr_001, lr_005, lr_01, lr_015, lr_02]
@@ -35,7 +35,7 @@ plt.title('Learning rate & Momentum')
 plt.xlabel('Models')
 plt.ylabel('Test accuracy (%)')
 B = plt.boxplot(columns)
-plt.xticks([1, 2, 3, 4, 5], ['LR=0.001, MOM=0', 'LR=0.005, MOM=0', 'LR=0.01, MOM=0', 'LR=0.015, MOM=0', 'LR=0.02, MOM=0'], rotation='vertical')
+plt.xticks([1, 2, 3, 4, 5], ['LR=0.001, MOM=0.99', 'LR=0.005, MOM=0.99', 'LR=0.01, MOM=0.99', 'LR=0.015, MOM=0.99', 'LR=0.02, MOM=0.99'], rotation='vertical')
 
 for k, v in model_dict.items():
     v = [float(item) for item in v]
