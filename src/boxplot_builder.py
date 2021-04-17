@@ -11,19 +11,19 @@ import numpy as np
 model_dict = {}
 
 try:
-    with open("../experiment_results/batch_size.pkl", "rb") as f:
+    with open("../experiment_results/lr_mom.pkl", "rb") as f:
         model_dict = pickle.load(f)
 except IOError:
     print("File not accessible")
 
-bs_8 = np.array(model_dict.get("Batch_Size: 8")).astype(float)
-bs_16 = np.array(model_dict.get("Batch_Size: 16")).astype(float)
-bs_32 = np.array(model_dict.get("Batch_Size: 32")).astype(float)
-bs_64 = np.array(model_dict.get("Batch_Size: 64")).astype(float)
-bs_128 = np.array(model_dict.get("Batch_Size: 128")).astype(float)
+lr_001 = np.array(model_dict.get("LR: 0.001, MOM: 0")).astype(float)
+lr_005 = np.array(model_dict.get("LR: 0.005, MOM: 0")).astype(float)
+lr_01 = np.array(model_dict.get("LR: 0.01, MOM: 0")).astype(float)
+lr_015 = np.array(model_dict.get("LR: 0.015, MOM: 0")).astype(float)
+lr_02 = np.array(model_dict.get("LR: 0.02, MOM: 0")).astype(float)
 
 
-columns = [bs_8, bs_16, bs_32, bs_64, bs_128]
+columns = [lr_001, lr_005, lr_01, lr_015, lr_02]
 
 fig = plt.figure(figsize=(5, 3), dpi=80)
 
@@ -31,11 +31,11 @@ fig = plt.figure(figsize=(5, 3), dpi=80)
 
 plt.rcParams.update({'font.size': 18})
 # Add title and axis names
-plt.title('Batch Size')
+plt.title('Learning rate & Momentum')
 plt.xlabel('Models')
 plt.ylabel('Test accuracy (%)')
 B = plt.boxplot(columns)
-plt.xticks([1, 2, 3, 4, 5], ['Batch_Size: 8', 'Batch_Size: 16', 'Batch_Size: 32', 'Batch_Size: 64', 'Batch_Size: 128'], rotation='horizontal')
+plt.xticks([1, 2, 3, 4, 5], ['LR=0.001, MOM=0', 'LR=0.005, MOM=0', 'LR=0.01, MOM=0', 'LR=0.015, MOM=0', 'LR=0.02, MOM=0'], rotation='vertical')
 
 for k, v in model_dict.items():
     v = [float(item) for item in v]

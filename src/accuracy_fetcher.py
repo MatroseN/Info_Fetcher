@@ -8,7 +8,7 @@ import pprint
 model_dict = {}
 
 try:
-    with open("../experiment_results/batch_size.pkl", "rb") as f:
+    with open("../experiment_results/lr_mom.pkl", "rb") as f:
         model_dict = pickle.load(f)
 except IOError:
     print("File not accessible")
@@ -16,15 +16,15 @@ except IOError:
 accuracy_list = []
 
 # This will be the key in the dictionary for this models entry
-model_label = "Batch_Size: 128"
+model_label = "LR: 0.02, MOM: 0"
 
 # setting flag and index to 0
 count = 0
 
 # assign directory
-directory = '../Batch/Custom_logs/'
+directory = '../LR Momentum/Custom_logs'
 
-search_string = '^.*batch_size,128.*$'
+search_string = "(numpy=0.015>,).*?(numpy=0>}).*?"
 
 pattern = re.compile(search_string)
 
@@ -75,7 +75,7 @@ for root, dirs, files in os.walk(directory):
                 acc = accuracy_fetcher(dir_path, accuracy_list)
                 model_dict[model_label] = acc
 
-                f = open("../experiment_results/batch_size.pkl", "wb")
+                f = open("../experiment_results/lr_mom.pkl", "wb")
                 pickle.dump(model_dict, f)
                 f.close()
 
