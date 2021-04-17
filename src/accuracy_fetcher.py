@@ -16,7 +16,7 @@ except IOError:
 accuracy_list = []
 
 # This will be the key in the dictionary for this models entry
-model_label = "Batch_Size: 8"
+model_label = "Batch_Size: 128"
 
 # setting flag and index to 0
 count = 0
@@ -24,7 +24,7 @@ count = 0
 # assign directory
 directory = '../Batch/Custom_logs/'
 
-search_string = '^.*batch_size,8.*$'
+search_string = '^.*batch_size,128.*$'
 
 pattern = re.compile(search_string)
 
