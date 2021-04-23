@@ -1,3 +1,3 @@
 Info_Fetcher
 
-Used for fetching specific data from textfiles.
+Used for fetching specific data from experiment results.
